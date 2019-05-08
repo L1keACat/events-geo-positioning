@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавить контакт</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=e7c0fa9f-f120-48ee-993c-934d78d54607&lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+<form method="POST" th:action="@{/add_form}" th:object="${event}">
+    <input th:type="hidden" th:field="*{id}" />
+    <table>
+        <tr>
+            <td>Событие:</td>
+            <td><input autofocus id="name" type="text" th:field="*{name}" /></td>
+        </tr>
+        <tr>
+            <td>Адрес:</td>
+            <td><input onClick="this.select();" id="address" type="text" th:field="*{address}" /></td>
+            <td>Или поставьте метку на карте (можно перемещать)</td>
+        </tr>
+        <tr>
+            <td>Координаты:</td>
+            <td><input readonly id="coord" type="text" th:field="*{coord}" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input id="btn_add" type="submit" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color:red;font-style:italic;">
+    ...
+</div>
+
+<div id="map" style="width: 600px; height: 400px"></div>
+
+</body>
+
+<script src="../static/js/add_event.js" th:src="@{/js/add_event.js}" type="text/javascript"></script>
+
+</html>
