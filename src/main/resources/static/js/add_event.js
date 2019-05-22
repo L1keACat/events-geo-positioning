@@ -41,6 +41,10 @@ function init() {
 
             if (myPlacemark) {
                 myPlacemark.geometry.setCoordinates(coords);
+                myMap.setBounds(bounds, {
+                    // Проверяем наличие тайлов на данном масштабе.
+                    checkZoomRange: true
+                });
             }
             // Если нет – создаем.
             else {

@@ -38,12 +38,13 @@ function init(){
 
     for (var i = 0; i < addresses.length; i++) {
         var name = names[i].innerText;
+        var address = addresses[i].innerText;
         var coords_text = coords[i].innerText;
         var longitude = coords_text.substring(0, coords_text.indexOf(','));
         var latitude = coords_text.substring(coords_text.indexOf(',') + 1, coords_text.length);
         var myPlacemark = new ymaps.Placemark([longitude,latitude], {
             iconContent: name,
-            balloonContent: 'Содержимое балуна <strong>моей метки</strong>'
+            balloonContent: address + '\n' + coords_text
         }, {
             preset: 'islands#violetStretchyIcon'
         });

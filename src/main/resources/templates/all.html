@@ -6,30 +6,27 @@
     <title>Все события</title>
     <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
     <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css" th:href="@{/css/main.css}">
+    <link rel="stylesheet" type="text/css" href="../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:200,400,800|Clicker+Script' rel='stylesheet' type='text/css'>
     <script src="https://api-maps.yandex.ru/2.1/?apikey=e7c0fa9f-f120-48ee-993c-934d78d54607&lang=ru_RU" type="text/javascript"></script>
 
 </head>
 <body>
+
+<nav class="fill">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/add_form">Add Event</a></li>
+        <li><a href="#">More</a></li>
+        <li><p th:inline="text">Signed in as <span id="current_user">[[${#httpServletRequest.remoteUser}]]</span>.</p></li>
+        <li><a href="/logout" id="logout">Logout</a></li>
+    </ul>
+</nav>
 <div class="container-fluid">
     <div class="events-section row">
         <div class="events-list col-md-6 col-sm-6 col-xs-12">
-            <div class="buttons">
-                <a class="button" id="add" href="/add_form">Добавить событие</a>
-                <a class="button" id="gen" href="/random_gen">Создать случайные события</a>
-            </div>
             <div class="events">
-            <!--<table border="1">
-                <tr>
-                    <th>Событие</th>
-                    <th>Адрес</th>
-                </tr>
-                <tr th:each ="event : ${events}">
-                    <td th:utext="${event.name}" class="name">...</td>
-                    <td th:utext="${event.address}" class="address">...</td>
-                    <td th:utext="${event.coord}" class="coord" hidden="hidden">...</td>
-                    <td><a th:href="@{'/edit?id=' + ${event.id}}">Править</a> | <a th:href="@{'/delete?id=' + ${event.id}}">Удалить</a></td>
-                </tr>
-            </table>-->
                 <div class="event row" th:each ="event : ${events}">
                     <div class="col-md-8 col-sm-8 col-xs-8">
                         <h4 th:utext="${event.name}" class="name">...</h4>
@@ -37,16 +34,25 @@
                         <p th:utext="${event.coord}" class="coord" hidden="hidden">...</p>
                     </div>
                     <div class="controls col-md-4 col-sm-4 col-xs-4">
-                        <a class="button"  th:href="@{'/edit?id=' + ${event.id}}">Править</a>
-                        <a class="button" th:href="@{'/delete?id=' + ${event.id}}">Удалить</a>
+                        <a class="button"  th:href="@{'/edit?id=' + ${event.id}}"><i class="fa fa-edit"></i></a>
+                        <a class="button" th:href="@{'/delete?id=' + ${event.id}}"><i class="fa fa-trash"></i></a>
                     </div>
                 </div>
+            </div>
+
+            <div class="buttons">
+                <!--<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Sign Out"/>
+                </form>-->
+                <a class="button" id="gen" href="/random_gen">Создать случайные события</a>
             </div>
         </div>
 
         <div id="map" class="col-md-6 col-sm-6 col-xs-12"></div>
     </div>
 </div>
+<footer class="footer"><p class="copyright">Developed and designed by <a href="https://vk.com/l1keacat" target="_blank">LikeACat</a></p></footer>
 
 </body>
 

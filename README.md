@@ -2,8 +2,8 @@
 
 In order to build the project edit _**application.properties**_ file to use your database.
 
-Create (if you don't have) database with 2 collections: _**events**_ 
-and _**sequences**_. 
+Create (if you don't have) database with 3 collections: _**events**_, _**users**_, 
+_**roles**_ and _**sequences**_.
 
 Then insert 1 document(_**\_id**_: "events", _**sequence**_: 0)  in _**sequences**_.
 

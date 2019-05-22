@@ -2,56 +2,89 @@ html, body {
 }
 
 .events-section {
-    height: 100vh;
-}
-
-.col-md-6 {
-    height: 100vh;
+    height: calc(100vh - 10em);
 }
 
 .events-list {
-    padding: 50px 0 50px 50px;
+    padding: 50px 0 0 50px;
+    height: 100%;
 }
 
 .events {
     overflow: auto;
     margin: 0;
-    height: 100%;
+    height: 90% ;
     width: auto;
     overflow-x: hidden;
 }
 
 .event {
-    margin-bottom: 5px;
+    padding: 5px;
     color: #6f42c1;
     /*background: #6f77c1;*/
-    border-bottom: 2px solid #6f42c1;
+    border-top: 2px solid #6f42c1;
+}
+
+.event:hover {
+    background: #92FFB7;
+}
+
+.event .controls{
+    display: none;
+}
+
+.event:hover .controls{
+    display: block;
 }
 
 #map {
     width: auto;
-    height: inherit;
+    height: 100%;
 }
 
 .buttons {
+    height: 10%;
     text-align: right;
     padding-bottom: 2px;
 }
 
 .button {
+    margin: 11px 0;
     display: inline-block;
-    padding: 5px 10px;
-    border: 2px solid #6f77c1;
+    padding: 3px 3px;
+
+    font-family: Montserrat-Bold;
+    font-size: 15px;
+    color: #6f42c1;
+    text-transform: uppercase;
+
+
     border-radius: 3px;
+    /*background: #6f42c1;*/
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.buttons .button{
+    margin: 0;
     color: #ffffff;
-    background: #6f77c1;
-    font-size: 16px;
+    border-radius: 20px;
+    padding: 5px 20px;
+    background: #57b846;
+}
+
+.buttons .button:hover, .buttons .button:focus{
+    border-radius: 20px;
+    padding: 5px 20px;
+    background: #6f42c1;
 }
 
 .button:hover, .button:focus {
-    border-color: #6f42c1;
     color: #ffffff;
-    background: #6f42c1;
+    background: #57b846;
     text-decoration: none;
 }
 
@@ -60,13 +93,7 @@ html, body {
 }
 
 .controls .button {
-    color: #6f42c1;
-    background: #ffffff;
-}
-
-.controls .button:hover, .controls .button:focus{
-    color: #ffffff;
-    background: #6f77c1;
+    width: 30px;
 }
 
 ::-webkit-scrollbar {
@@ -89,4 +116,139 @@ html, body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #6f77c1;
+}
+
+.footer {
+    background: #57b846;
+}
+
+.copyright, .copyright a{
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.copyright a:hover{
+    color: #6f42c1;
+}
+
+@media (max-width: 1300px) {
+    .events {
+        height: 80% ;
+    }
+
+    .buttons {
+        height: 20%;
+    }
+}
+
+nav {
+    width: 100%;
+    margin: 0 auto;
+    background: #57b846;
+    padding: 10px 0;
+    height: 5em;
+}
+
+nav ul {
+    list-style: none;
+    text-align: center;
+}
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li #logout{
+    right: 2em;
+    top: 1em;
+    position: absolute;
+}
+
+nav ul li p {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    color: #fff;
+    margin: 0;
+    right: 7em;
+    top: 12px;
+    position: absolute;
+}
+
+nav ul li a {
+     display: block;
+     padding: 15px;
+     text-decoration: none;
+     color: #fff;
+     font-weight: 800;
+     text-transform: uppercase;
+     margin: 0;
+ }
+nav ul li a,
+nav ul li a:after,
+nav ul li a:before {
+    transition: all .5s;
+}
+nav ul li a:hover {
+    color: #555;
+}
+
+nav.fill ul li a {
+    position: relative;
+}
+
+nav.fill ul li a:after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 0%;
+    content: '.';
+    color: transparent;
+    background: #333;
+    height: 1px;
+}
+
+nav.fill ul li a {
+    transition: all 2s;
+}
+
+nav.fill ul li a:after {
+    text-align: left;
+    content: '.';
+    margin: 0;
+    opacity: 0;
+}
+nav.fill ul li a:hover {
+    color: #fff;
+    z-index: 1;
+}
+nav.fill ul li a:hover:after {
+    z-index: -10;
+    animation: fill 1s forwards;
+    -webkit-animation: fill 1s forwards;
+    -moz-animation: fill 1s forwards;
+    opacity: 1;
+}
+
+
+
+/* Keyframes */
+@-webkit-keyframes fill {
+    0% {
+        width: 0%;
+        height: 1px;
+    }
+    50% {
+        width: 100%;
+        height: 1px;
+    }
+    100% {
+        width: 100%;
+        height: 100%;
+        background: #6f42c1;
+    }
+}
+
+#current_user {
+    text-decoration: underline;
 }
