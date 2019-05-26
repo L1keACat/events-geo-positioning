@@ -25,8 +25,8 @@
 [ RESTYLE TAG ]*/
 
 * {
-	margin: 0px; 
-	padding: 0px; 
+	margin: 0;
+	padding: 0;
 	box-sizing: border-box;
 }
 
@@ -41,7 +41,7 @@ a {
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
-	margin: 0px;
+	margin: 0;
 	transition: all 0.4s;
 	-webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -59,7 +59,7 @@ a:hover {
 
 /*---------------------------------------------*/
 h1,h2,h3,h4,h5,h6 {
-	margin: 0px;
+	margin: 0;
 }
 
 p {
@@ -67,11 +67,11 @@ p {
 	font-size: 15px;
 	line-height: 1.7;
 	color: #666666;
-	margin: 0px;
+	margin: 0;
 }
 
 ul, li {
-	margin: 0px;
+	margin: 0;
 	list-style-type: none;
 }
 
@@ -229,7 +229,7 @@ iframe {
   z-index: -1;
   width: 100%;
   height: 100%;
-  box-shadow: 0px 0px 0px 0px;
+  box-shadow: 0 0 0 0;
   color: rgba(87,184,70, 0.8);
 }
 
@@ -240,14 +240,14 @@ iframe {
 
 @-webkit-keyframes anim-shadow {
   to {
-    box-shadow: 0px 0px 70px 25px;
+    box-shadow: 0 0 70px 25px;
     opacity: 0;
   }
 }
 
 @keyframes anim-shadow {
   to {
-    box-shadow: 0px 0px 70px 25px;
+    box-shadow: 0 0 70px 25px;
     opacity: 0;
   }
 }
@@ -547,4 +547,52 @@ iframe {
 .user-manage {
   padding: 5px;
   color: #6f42c1;
+}
+
+.about-section {
+  height: calc(100vh - 10em);
+  overflow: auto;
+}
+
+.technology img {
+  display: block;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 90%;
+  max-width: 100%;
+}
+
+.technology p {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, -100%);
+}
+
+.technology {
+  position: relative;
+  height: 250px;
+  text-align: center;
+}
+
+.element {
+  width: 75%;
+  height: 75%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  align-items: center;
+}
+
+.about-text h4, .about-text h3{
+  padding: 5px;
+  color: #6f42c1;
+}
+
+.about {
+  padding: 30px;
 }

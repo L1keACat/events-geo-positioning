@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -41,9 +41,9 @@
                         <a class="button" id="delete_user" th:href="@{'/user/' + ${user.username} + '/delete'}">Delete</a>
                     </div>
                 </div>
-                <div class="alert error" th:if="${errorMessage}" th:utext="${errorMessage}">
+                <!--<div class="alert error" th:if="${errorMessage}" th:utext="${errorMessage}">
                     ...
-                </div>
+                </div>-->
             </div>
         </div>
     </div>

@@ -21,13 +21,12 @@ In order to build the project itself run:
 ./gradlew bootRun
 ```
 
-Access http://localhost:8080
-
 Or you can simply run:
 
 ```
 java -jar ./build/libs/events-geo-positioning-0.0.1-SNAPSHOT.jar
 ```
+Access http://localhost:8080
 
 #### Enter as admin:
 
@@ -37,4 +36,4 @@ Password: _**123**_.
 
 #### Enter as user:
 
-Just register with your own username and password and then log in.
+Just sign up with your own username and password and then log in.

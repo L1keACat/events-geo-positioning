@@ -59,6 +59,13 @@ public class MainController {
         return modelAndView;
     }
 
+    @RequestMapping(value = {"/about_guest"}, method = RequestMethod.GET)
+    public ModelAndView showAboutGuest() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("about_guest");
+        return modelAndView;
+    }
+
     @RequestMapping(value = {"/user/add_form", "/admin/add_form_admin"}, method = RequestMethod.GET)
     public ModelAndView GetAddForm() {
         ModelAndView modelAndView = new ModelAndView();
