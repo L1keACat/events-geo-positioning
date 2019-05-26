@@ -19,6 +19,7 @@ html, body {
 }
 
 .event {
+    cursor: pointer;
     padding: 5px;
     color: #6f42c1;
     /*background: #6f77c1;*/

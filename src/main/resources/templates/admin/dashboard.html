@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/css/main.css" th:href="@{/css/main.css}">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:200,400,800|Clicker+Script' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+
+<nav class="fill">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/admin/all_admin">All Events</a></li>
+        <li><a href="/admin/add_form_admin">Add Event</a></li>
+        <li><a href="/admin/about_admin">About</a></li>
+        <li><p th:inline="text">Signed in as <span id="current_user">[[${#httpServletRequest.remoteUser}]]</span>.</p></li>
+        <li><a href="/logout" id="logout">Logout</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <div class="events-section row">
+        <div class="events-list col-md-12 col-sm-12 col-xs-12">
+            <div class="user-manage">
+                <h2>User Management</h2>
+            </div>
+            <div class="events">
+                <div class="event row" th:each ="user : ${users}">
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                        ID: <p th:utext="${user.id}" class="address">...</p>
+                        Username: <h4 th:utext="${user.username}">...</h4>
+                        Password: <p th:utext="${user.password}">...</p>
+                        Enabled: <p th:utext="${user.enabled}">...</p>
+                        Role: <p th:utext="${user.getStringRoles()}">...</p>
+                    </div>
+                    <div class="controls col-md-4 col-sm-4 col-xs-4">
+                        <a class="button" id="delete_user" th:href="@{'/user/' + ${user.username} + '/delete'}">Delete</a>
+                    </div>
+                </div>
+                <div class="alert error" th:if="${errorMessage}" th:utext="${errorMessage}">
+                    ...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer"><p class="copyright">Developed and designed by <a href="https://vk.com/l1keacat" target="_blank">LikeACat</a></p></footer>
+
+</body>
+
+<script src="../../static/js/main.js" th:src="@{/js/main.js}" type="text/javascript"></script>
+
+</html>

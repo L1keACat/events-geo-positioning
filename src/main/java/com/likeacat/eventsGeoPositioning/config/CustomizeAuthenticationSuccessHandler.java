@@ -20,10 +20,10 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
 
         for (GrantedAuthority auth : authentication.getAuthorities()) {
             if ("ADMIN".equals(auth.getAuthority())) {
-                response.sendRedirect("/dashboard");
+                response.sendRedirect("/admin/all_admin");
             }
             if ("USER".equals(auth.getAuthority())) {
-                response.sendRedirect("/all");
+                response.sendRedirect("/user/all");
             }
         }
     }

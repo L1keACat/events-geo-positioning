@@ -9,16 +9,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LoginController {
 
-    @Value("${error2.message}")
+    @Value("${deleteadminerror.message}")
     private String errorMessage;
+    @Value("${userexistserror.message}")
+    private String errorMessage2;
 
     @Autowired
     private CustomUserDetailsService userService;
@@ -44,6 +46,7 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         User userExists = userService.findUserByUsername(user.getUsername());
         if (userExists != null) {
+            modelAndView.addObject("errorMessage", errorMessage2);
             bindingResult
                     .rejectValue("username", "error.user",
                             "There is already a user registered with the username provided");
@@ -59,30 +62,30 @@ public class LoginController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/dashboard", method = RequestMethod.GET)
     public ModelAndView dashboard() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUsername(auth.getName());
         modelAndView.addObject("currentUser", user);
         modelAndView.addObject("username", "Welcome " + user.getUsername());
-        modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
 
         modelAndView.addObject("users", userService.getAll());
-        modelAndView.setViewName("dashboard");
+        modelAndView.setViewName("admin/dashboard");
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/delete_user"}, method = RequestMethod.GET)
-    public ModelAndView enableUser(@RequestParam(required = true) String username) {
+    @RequestMapping(value = {"/user/{username}/delete"}, method = RequestMethod.GET)
+    public ModelAndView deleteUser(@PathVariable String username) {
         ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByUsername(auth.getName());
-        if(userService.checkForAdmin(username))
-            modelAndView.addObject("errorMessage", "You can't delete admin.");
-        else
+        if(userService.checkForAdmin(username)) {
+            //modelAndView.addObject("errorMessage", errorMessage);
+            modelAndView.setViewName("redirect:/admin/dashboard");
+        }
+        else {
             userService.deleteUser(username);
-        modelAndView.setViewName("redirect:/dashboard");
+            modelAndView.setViewName("redirect:/admin/dashboard");
+        }
         return modelAndView;
     }
 }

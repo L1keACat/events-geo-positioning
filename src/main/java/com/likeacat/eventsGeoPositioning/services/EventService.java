@@ -1,8 +1,8 @@
 package com.likeacat.eventsGeoPositioning.services;
 
-import com.likeacat.eventsGeoPositioning.DAO.EventDAO;
 import com.likeacat.eventsGeoPositioning.DAO.SequenceDAO;
 import com.likeacat.eventsGeoPositioning.model.Event;
+import com.likeacat.eventsGeoPositioning.repository.EventRepository;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,27 +18,28 @@ import java.util.List;
 @Service
 public class EventService {
     @Autowired private SequenceDAO sequenceDao;
-    @Autowired private EventDAO eventDAO;
+    @Autowired private EventRepository eventRepository;
 
     public void add(Event event) {
         event.setId(sequenceDao.getNextSequenceId(Event.COLLECTION_NAME));
-        eventDAO.save(event);
+        eventRepository.save(event);
     }
 
     public void update(Event event) {
-        eventDAO.save(event);
+        eventRepository.save(event);
     }
 
-    public Event get(Long id) {
-        return eventDAO.get(id);
+    public Event findById(Long id) {
+        return eventRepository.findById(id);
     }
 
     public List<Event> getAll() {
-        return eventDAO.getAll();
+        return eventRepository.findAll();
     }
 
     public void remove(Long id) {
-        eventDAO.remove(id);
+        Event event = eventRepository.findById(id);
+        eventRepository.delete(event);
     }
 
     public void random_gen() throws IOException, JSONException {
@@ -71,7 +72,7 @@ public class EventService {
 
             Event event = new Event(events[t], address, coord2);
             event.setId(sequenceDao.getNextSequenceId(Event.COLLECTION_NAME));
-            eventDAO.save(event);
+            eventRepository.save(event);
         }
     }
 }

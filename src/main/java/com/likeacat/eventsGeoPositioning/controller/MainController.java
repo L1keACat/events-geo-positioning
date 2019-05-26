@@ -1,10 +1,14 @@
 package com.likeacat.eventsGeoPositioning.controller;
 
 import com.likeacat.eventsGeoPositioning.model.Event;
+import com.likeacat.eventsGeoPositioning.model.User;
+import com.likeacat.eventsGeoPositioning.services.CustomUserDetailsService;
 import com.likeacat.eventsGeoPositioning.services.EventService;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,9 +18,16 @@ import java.io.IOException;
 public class MainController {
     @Autowired
     private EventService eventService;
+    @Autowired
+    private CustomUserDetailsService userService;
 
     @Value("${error.message}")
     private String errorMessage;
+
+    private User getUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return userService.findUserByUsername(auth.getName());
+    }
 
     @RequestMapping(value = {"/","/start"}, method = RequestMethod.GET)
     public ModelAndView home() {
@@ -25,11 +36,18 @@ public class MainController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/all"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/user/all", "/admin/all_admin"}, method = RequestMethod.GET)
     public ModelAndView showAll() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("events", eventService.getAll());
-        modelAndView.setViewName("all");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUsername(auth.getName());
+        if(userService.checkForAdmin(user.getUsername())) {
+            modelAndView.setViewName("admin/all_admin");
+        }
+        else {
+            modelAndView.setViewName("user/all");
+        }
         return modelAndView;
     }
 
@@ -41,16 +59,21 @@ public class MainController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/add_form"}, method = RequestMethod.GET)
-    public ModelAndView showAddForm() {
+    @RequestMapping(value = {"/user/add_form", "/admin/add_form_admin"}, method = RequestMethod.GET)
+    public ModelAndView GetAddForm() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("event", new Event());
-        modelAndView.setViewName("add_form");
+        if(userService.checkForAdmin(getUser().getUsername())) {
+            modelAndView.setViewName("admin/add_form_admin");
+        }
+        else {
+            modelAndView.setViewName("user/add_form");
+        }
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/add_form"}, method = RequestMethod.POST)
-    public ModelAndView addEvent(@ModelAttribute("event") Event event) {
+    @RequestMapping(value = {"/user/add_form", "/admin/add_form_admin"}, method = RequestMethod.POST)
+    public ModelAndView PostAddForm(@ModelAttribute("event") Event event) {
         ModelAndView modelAndView = new ModelAndView();
 
         String name = event.getName();
@@ -62,27 +85,49 @@ public class MainController {
             else
                 eventService.update(event);
 
-            modelAndView.setViewName("redirect:/all");
+            if(userService.checkForAdmin(getUser().getUsername())) {
+                modelAndView.setViewName("redirect:/admin/all_admin");
+            }
+            else {
+                modelAndView.setViewName("redirect:/user/all");
+            }
             return modelAndView;
         }
         modelAndView.addObject("errorMessage", errorMessage);
-        modelAndView.setViewName("add_form");
+        if(userService.checkForAdmin(getUser().getUsername())) {
+            modelAndView.setViewName("admin/add_form_admin");
+        }
+        else {
+            modelAndView.setViewName("user/add_form");
+        }
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/edit"}, method = RequestMethod.GET)
-    public ModelAndView showEditForm(@RequestParam(required = true) Long id) {
+    @RequestMapping(value = {"/event/{id}/edit"}, method = RequestMethod.GET)
+    public ModelAndView GetEditForm(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("event", eventService.get(id));
-        modelAndView.setViewName("add_form");
+        modelAndView.addObject("event", eventService.findById(id));
+        if(userService.checkForAdmin(getUser().getUsername())) {
+            modelAndView.setViewName("admin/add_form_admin");
+        }
+        else {
+            modelAndView.setViewName("user/add_form");
+        }
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/delete"}, method = RequestMethod.GET)
-    public ModelAndView deleteEvent(@RequestParam(required = true) Long id) {
+    @RequestMapping(value = {"/event/{id}/delete"}, method = RequestMethod.GET)
+    public ModelAndView deleteEvent(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView();
         eventService.remove(id);
-        modelAndView.setViewName("redirect:/all");
+
+        if(userService.checkForAdmin(getUser().getUsername())) {
+            modelAndView.setViewName("redirect:/admin/all_admin");
+        }
+        else {
+            modelAndView.setViewName("redirect:/user/all");
+        }
+
         return modelAndView;
     }
 
@@ -90,7 +135,28 @@ public class MainController {
     public ModelAndView generateRandomEvents() throws IOException, JSONException {
         ModelAndView modelAndView = new ModelAndView();
         eventService.random_gen();
-        modelAndView.setViewName("redirect:/all");
+
+        if(userService.checkForAdmin(getUser().getUsername())) {
+            modelAndView.setViewName("redirect:/admin/all_admin");
+        }
+        else {
+            modelAndView.setViewName("redirect:/user/all");
+        }
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = {"/user/about", "/admin/about_admin"}, method = RequestMethod.GET)
+    public ModelAndView AboutPage() {
+        ModelAndView modelAndView = new ModelAndView();
+
+        if(userService.checkForAdmin(getUser().getUsername())) {
+            modelAndView.setViewName("admin/about_admin");
+        }
+        else {
+            modelAndView.setViewName("user/about");
+        }
+
         return modelAndView;
     }
 }

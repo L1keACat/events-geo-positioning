@@ -57,4 +57,12 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public String getStringRoles() {
+        for (Role role : roles) {
+            if ("ADMIN".equals(role.getRole()))
+                return "ADMIN";
+        }
+        return "USER";
+    }
 }

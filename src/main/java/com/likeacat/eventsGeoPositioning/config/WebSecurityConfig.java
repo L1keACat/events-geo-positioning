@@ -41,20 +41,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/start").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/signup").permitAll()
-                .antMatchers("/all_guest").permitAll()
-                .antMatchers("/dashboard").hasAuthority("ADMIN")
-                .anyRequest().authenticated()
-                .and().csrf().disable().formLogin().successHandler(customizeAuthenticationSuccessHandler)
-                .loginPage("/login").failureUrl("/login?error=true")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").and().exceptionHandling();
+                    .antMatchers("/").permitAll()
+                    .antMatchers("/start").permitAll()
+                    .antMatchers("/login").permitAll()
+                    .antMatchers("/signup").permitAll()
+                    .antMatchers("/all_guest").permitAll()
+                    .antMatchers("/about_guest").permitAll()
+                    .antMatchers("/all_admin").hasAuthority("ADMIN")
+                    .antMatchers("/add_form_admin").hasAuthority("ADMIN")
+                    .antMatchers("/about_admin").hasAuthority("ADMIN")
+                    .antMatchers("/dashboard").hasAuthority("ADMIN")
+                    .anyRequest().authenticated()
+                    .and().csrf().disable()
+                .formLogin().successHandler(customizeAuthenticationSuccessHandler)
+                    .loginPage("/login").failureUrl("/login?error=true")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .and()
+                .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/").and().exceptionHandling();
     }
 
     @Override

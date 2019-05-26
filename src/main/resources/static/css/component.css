@@ -2,10 +2,9 @@
 .large-header {
     position: relative;
     width: 100%;
-    background: #333;
+    background: #333 center center;
     overflow: hidden;
     background-size: cover;
-    background-position: center center;
     z-index: 1;
 }
 
@@ -24,6 +23,10 @@
     left: 50%;
     -webkit-transform: translate3d(-50%,-50%,0);
     transform: translate3d(-50%,-50%,0);
+}
+
+.main-title:hover, .main-title:focus {
+    color: #c850c0;
 }
 
 .demo-2 .main-title {

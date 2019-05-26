@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>About</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/css/main.css" th:href="@{/css/main.css}">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:200,400,800|Clicker+Script' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+
+<nav class="fill">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/user/all">All Events</a></li>
+        <li><a href="/user/add_form">Add Event</a></li>
+        <li><p th:inline="text">Signed in as <span id="current_user">[[${#httpServletRequest.remoteUser}]]</span>.</p></li>
+        <li><a href="/logout" id="logout">Logout</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <div class="events-section row">
+
+    </div>
+</div>
+<footer class="footer"><p class="copyright">Developed and designed by <a href="https://vk.com/l1keacat" target="_blank">LikeACat</a></p></footer>
+
+</body>
+
+</html>

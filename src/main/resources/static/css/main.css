@@ -480,3 +480,71 @@ iframe {
   height: 5em;
   text-align: center;
 }
+
+.wrap-addevent {
+  width: 70%;
+  max-width: 95%;
+  max-height: 95%;
+  background: #fff;
+  border-radius: 10px;
+  overflow: auto;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 50px;
+}
+
+.backgr-purple {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  background: #9053c7;
+  background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: linear-gradient(-135deg, #c850c0, #4158d0);
+}
+
+.input200 {
+  font-family: Poppins-Medium;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #666666;
+
+  display: block;
+  width: 100%;
+  background: #e6e6e6;
+  height: 50px;
+  border-radius: 25px;
+  padding: 0 30px 0 30px;
+}
+
+.login200-form {
+  width: 100%;
+}
+
+.add-form {
+  padding: 0;
+  height: 100%;
+}
+
+#delete_user {
+  width: 70px;
+}
+
+.user-manage {
+  padding: 5px;
+  color: #6f42c1;
+}
