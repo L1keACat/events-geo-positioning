@@ -24,7 +24,7 @@ In order to build the project itself run:
 Or you can simply run:
 
 ```
-java -jar ./build/libs/events-geo-positioning-0.0.1-SNAPSHOT.jar
+java -jar ./build/libs/events-geo-positioning-1.1.0-SNAPSHOT.jar
 ```
 Access http://localhost:8080
 
