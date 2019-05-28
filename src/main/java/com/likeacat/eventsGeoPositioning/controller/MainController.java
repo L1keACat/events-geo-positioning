@@ -4,6 +4,9 @@ import com.likeacat.eventsGeoPositioning.model.Event;
 import com.likeacat.eventsGeoPositioning.model.User;
 import com.likeacat.eventsGeoPositioning.services.CustomUserDetailsService;
 import com.likeacat.eventsGeoPositioning.services.EventService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 
+@Api(value="Rest Controller", description="REST-operations with MongoDB database and other")
 @RestController
 public class MainController {
     @Autowired
@@ -29,6 +33,7 @@ public class MainController {
         return userService.findUserByUsername(auth.getName());
     }
 
+    @ApiOperation(value = "View a start page")
     @RequestMapping(value = {"/","/start"}, method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
@@ -36,6 +41,7 @@ public class MainController {
         return modelAndView;
     }
 
+    @ApiOperation(value = "View a page with all events")
     @RequestMapping(value = {"/user/all", "/admin/all_admin"}, method = RequestMethod.GET)
     public ModelAndView showAll() {
         ModelAndView modelAndView = new ModelAndView();
@@ -51,6 +57,7 @@ public class MainController {
         return modelAndView;
     }
 
+    @ApiOperation(value = "View a guest page with all events")
     @RequestMapping(value = {"/all_guest"}, method = RequestMethod.GET)
     public ModelAndView showAllGuest() {
         ModelAndView modelAndView = new ModelAndView();
@@ -59,6 +66,7 @@ public class MainController {
         return modelAndView;
     }
 
+    @ApiOperation(value = "View a guest page about app")
     @RequestMapping(value = {"/about_guest"}, method = RequestMethod.GET)
     public ModelAndView showAboutGuest() {
         ModelAndView modelAndView = new ModelAndView();
@@ -66,6 +74,7 @@ public class MainController {
         return modelAndView;
     }
 
+    @ApiOperation(value = "View a add event page")
     @RequestMapping(value = {"/user/add_form", "/admin/add_form_admin"}, method = RequestMethod.GET)
     public ModelAndView GetAddForm() {
         ModelAndView modelAndView = new ModelAndView();
@@ -79,6 +88,7 @@ public class MainController {
         return modelAndView;
     }
 
+    @ApiOperation(value = "Add an event")
     @RequestMapping(value = {"/user/add_form", "/admin/add_form_admin"}, method = RequestMethod.POST)
     public ModelAndView PostAddForm(@ModelAttribute("event") Event event) {
         ModelAndView modelAndView = new ModelAndView();
@@ -110,8 +120,10 @@ public class MainController {
         return modelAndView;
     }
 
+    @ApiOperation(value = "View an edit event page")
     @RequestMapping(value = {"/event/{id}/edit"}, method = RequestMethod.GET)
-    public ModelAndView GetEditForm(@PathVariable Long id) {
+    public ModelAndView GetEditForm(@ApiParam(value = "Id of event which will be edited", required = true)
+                                        @PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("event", eventService.findById(id));
         if(userService.checkForAdmin(getUser().getUsername())) {
@@ -123,8 +135,10 @@ public class MainController {
         return modelAndView;
     }
 
+    @ApiOperation(value = "Delete event")
     @RequestMapping(value = {"/event/{id}/delete"}, method = RequestMethod.GET)
-    public ModelAndView deleteEvent(@PathVariable Long id) {
+    public ModelAndView deleteEvent(@ApiParam(value = "Id of event which will be deleted", required = true)
+                                        @PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView();
         eventService.remove(id);
 
@@ -138,6 +152,7 @@ public class MainController {
         return modelAndView;
     }
 
+    @ApiOperation(value = "Generate 10 random events")
     @RequestMapping(value = {"/random_gen"}, method = RequestMethod.GET)
     public ModelAndView generateRandomEvents() throws IOException, JSONException {
         ModelAndView modelAndView = new ModelAndView();
@@ -153,6 +168,7 @@ public class MainController {
         return modelAndView;
     }
 
+    @ApiOperation(value = "View a page about app")
     @RequestMapping(value = {"/user/about", "/admin/about_admin"}, method = RequestMethod.GET)
     public ModelAndView AboutPage() {
         ModelAndView modelAndView = new ModelAndView();

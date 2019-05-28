@@ -1,6 +1,8 @@
 package com.likeacat.eventsGeoPositioning.model;
 
 import java.util.Set;
+
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -9,12 +11,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user")
 public class User {
+    @ApiModelProperty(notes = "The database generated user ID")
     @Id
     private String id;
+    @ApiModelProperty(notes = "Username of the user")
     @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     private String username;
+    @ApiModelProperty(notes = "User's password")
     private String password;
+    @ApiModelProperty(notes = "Is user enabled in the system")
     private boolean enabled;
+    @ApiModelProperty(notes = "Set of users roles")
     @DBRef
     private Set<Role> roles;
 

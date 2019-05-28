@@ -3,6 +3,10 @@ package com.likeacat.eventsGeoPositioning.controller;
 import com.likeacat.eventsGeoPositioning.model.User;
 import com.likeacat.eventsGeoPositioning.services.CustomUserDetailsService;
 import javax.validation.Valid;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+@Api(value="Login Controller", description="All operations with user authentication")
 @Controller
 public class LoginController {
 
@@ -25,6 +30,7 @@ public class LoginController {
     @Autowired
     private CustomUserDetailsService userService;
 
+    @ApiOperation(value = "View a login page")
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
@@ -32,6 +38,7 @@ public class LoginController {
         return modelAndView;
     }
 
+    @ApiOperation(value = "View a sign up page")
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public ModelAndView signup() {
         ModelAndView modelAndView = new ModelAndView();
@@ -41,6 +48,7 @@ public class LoginController {
         return modelAndView;
     }
 
+    @ApiOperation(value = "Create a user")
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
@@ -62,6 +70,7 @@ public class LoginController {
         return modelAndView;
     }
 
+    @ApiOperation(value = "View admin dashboard page")
     @RequestMapping(value = "/admin/dashboard", method = RequestMethod.GET)
     public ModelAndView dashboard() {
         ModelAndView modelAndView = new ModelAndView();
@@ -75,8 +84,10 @@ public class LoginController {
         return modelAndView;
     }
 
+    @ApiOperation(value = "Delete user")
     @RequestMapping(value = {"/user/{username}/delete"}, method = RequestMethod.GET)
-    public ModelAndView deleteUser(@PathVariable String username) {
+    public ModelAndView deleteUser(@ApiParam(value = "Id of user who will be edited", required = true)
+                                       @PathVariable String username) {
         ModelAndView modelAndView = new ModelAndView();
         if(userService.checkForAdmin(username)) {
             //modelAndView.addObject("errorMessage", errorMessage);
