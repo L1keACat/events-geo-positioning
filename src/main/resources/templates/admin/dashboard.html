@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+          integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
     <link rel="stylesheet" type="text/css" href="../../static/css/style.css" th:href="@{/css/style.css}">
     <link rel="stylesheet" type="text/css" href="../../static/css/main.css" th:href="@{/css/main.css}">
-    <link href='https://fonts.googleapis.com/css?family=Raleway:200,400,800|Clicker+Script' rel='stylesheet' type='text/css'>
 
 </head>
 <body>
@@ -18,7 +21,9 @@
         <li><a href="/admin/all_admin">All Events</a></li>
         <li><a href="/admin/add_form_admin">Add Event</a></li>
         <li><a href="/admin/about_admin">About</a></li>
-        <li><p th:inline="text">Signed in as <span id="current_user">[[${#httpServletRequest.remoteUser}]]</span>.</p></li>
+        <li>
+            <p th:inline="text">Signed in as <span id="current_user">[[${#httpServletRequest.remoteUser}]]</span>.</p>
+        </li>
         <li><a href="/logout" id="logout">Logout</a></li>
     </ul>
 </nav>
@@ -29,7 +34,7 @@
                 <h2>User Management</h2>
             </div>
             <div class="events">
-                <div class="event row" th:each ="user : ${users}">
+                <div class="event row" th:each="user : ${users}">
                     <div class="col-md-8 col-sm-8 col-xs-8">
                         ID: <p th:utext="${user.id}" class="address">...</p>
                         Username: <h4 th:utext="${user.username}">...</h4>
@@ -38,7 +43,8 @@
                         Role: <p th:utext="${user.getStringRoles()}">...</p>
                     </div>
                     <div class="controls col-md-4 col-sm-4 col-xs-4">
-                        <a class="button" id="delete_user" th:href="@{'/user/' + ${user.username} + '/delete'}">Delete</a>
+                        <a class="button" id="delete_user"
+                           th:href="@{'/user/' + ${user.username} + '/delete'}">Delete</a>
                     </div>
                 </div>
                 <!--<div class="alert error" th:if="${errorMessage}" th:utext="${errorMessage}">
@@ -48,7 +54,11 @@
         </div>
     </div>
 </div>
-<footer class="footer"><p class="copyright">Developed and designed by <a href="https://vk.com/l1keacat" target="_blank">LikeACat</a></p></footer>
+<footer class="footer">
+    <p class="copyright">Developed and designed by
+        <a href="https://vk.com/l1keacat" target="_blank">LikeACat</a>
+    </p>
+</footer>
 
 </body>
 

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Service
@@ -62,7 +62,7 @@ public class EventService {
 
             String requestUrl = "https://geocode-maps.yandex.ru/1.x/?format=json&apikey=" + apikey + "&geocode=" + coord;
 
-            JSONObject json = new JSONObject(IOUtils.toString(new URL(requestUrl), Charset.forName("UTF-8")));
+            JSONObject json = new JSONObject(IOUtils.toString(new URL(requestUrl), StandardCharsets.UTF_8));
             JSONObject response = (JSONObject) json.get("response");
             JSONObject GeoObjectCollection = (JSONObject) response.get("GeoObjectCollection");
             JSONArray featureMember = (JSONArray) GeoObjectCollection.get("featureMember");
